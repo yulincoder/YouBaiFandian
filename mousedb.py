@@ -102,10 +102,19 @@ class mousedb:
         '''
         if self.fsave:
         	self._loaddb()
-
+			
+		'''
         if self.db[self.items[self.KEY_VALUE]].has_key(key): 
             self.db[self.items[self.KEY_VALUE]].pop(key)
             self._dumpdb()
+		'''
+		# 上面代码用异常来重写，但是我还要把它留着！
+		try:
+			self.db[self.items[self.KEY_VALUE]].pop(key)
+			self._dumpdb()
+			return True
+		except KeyError:
+			return False
             
 
     

@@ -178,7 +178,11 @@ def print_summary_db(db, amount_word_a_row = 3):                       # 打印�
 
 
 def rm_word_from_db(db, word):   # 从数据库删除元素
-        db.delrow(word)
+        if not db.delrow(word):
+            clr_control.set_print_yellow_text()         # 黄色输出
+            print '...  ',
+            print 'remove failed ..'
+            clr_control.set_print_green_text()  	# 输出还原为绿色
     
                         
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 '''
 @brief 只能英->汉
+switch?
 '''
 import urllib2
 import os

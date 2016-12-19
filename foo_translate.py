@@ -135,55 +135,56 @@ def print_db(db):           # 打印历史记录详细信息
                 
 
 def print_summary_db(db, amount_word_a_row = 3):                       # 打印历史记录简单信息
-        items = db.get_items()
-        tmp_for_sort = {}       # 新dict用来排序之用   
-        row_cnt = 0             # 输出行数计数
-        words_cnt = 0           # 输出单词个数计数
-        
-        for item in items:      # 按照历史查询频率对单词分类
-            index = db.findvalue(item, 'Counter')
-            if index not in tmp_for_sort:
-                    tmp_for_sort[index] = [item]        # 将字典的键设置为查询次数，值设置为单词本身，这样可以用sorted函数根据历史查询次数对单词排序
-            else:
-                    tmp_for_sort[index].append(item)
+	items = db.get_items()
+	tmp_for_sort = {}       # 新dict用来排序之用   
+	row_cnt = 0             # 输出行数计数
+	words_cnt = 0           # 输出单词个数计数
+	
+	for item in items:      # 按照历史查询频率对单词分类
+		index = db.findvalue(item, 'Counter')
+		if index not in tmp_for_sort:
+			tmp_for_sort[index] = [item]        # 将字典的键设置为查询次数，值设置为单词本身，这样可以用sorted函数根据历史查询次数对单词排序
+		else:
+			tmp_for_sort[index].append(item)
 
 
-        sorted_count = sorted(tmp_for_sort)             # 对统计的次数进行排序
-        
-        clr_control.set_print_gray_text()               # 灰(hui)色输出
-        print '%-5s\t' % (str(1) + ':'),
-        clr_control.set_print_yellow_text()             # 黄色输出
-        for each in sorted_count:                       # 根据排序输出查询历史记录
-                
-            for word in tmp_for_sort[each]:             # 统计次数一样的不同单词都在list里面
-                
-                    clr_control.set_print_red_text()
-                    print '%6s' % ('[' + str(db.findvalue(word, 'Counter')) + ']'),   # 历史查询频率显示
-                    clr_control.set_print_yellow_text() if row_cnt % 2 == 0 else clr_control.set_print_green_text()
-                    
-                    print  '%-15s' % (word),       # 输出单词
-                    words_cnt += 1
-                   
-                    if words_cnt % amount_word_a_row == 0:         # 换行处理及与换行有关的颜色处理
-                        row_cnt += 1
-                        clr_control.set_print_gray_text()               # 灰(hui)色输出
-                        print '\n\n%-5s\t' % (str(row_cnt+1) + ':'),   
-                        if row_cnt % 2 == 0:
-                            clr_control.set_print_yellow_text()  	# 黄色输出
-                        else:
-                            clr_control.set_print_green_text()          # 输出为绿色
+	sorted_count = sorted(tmp_for_sort)             # 对统计的次数进行排序
+	
+	clr_control.set_print_gray_text()               # 灰(hui)色输出
+	print '%-5s\t' % (str(1) + ':'),
+	clr_control.set_print_yellow_text()             # 黄色输出
+	for each in sorted_count:                       # 根据排序输出查询历史记录
+			
+		for word in tmp_for_sort[each]:             # 统计次数一样的不同单词都在list里面
+			
+			clr_control.set_print_red_text()
+			print '%6s' % ('[' + str(db.findvalue(word, 'Counter')) + ']'),   # 历史查询频率显示
+			clr_control.set_print_yellow_text() if row_cnt % 2 == 0 else clr_control.set_print_green_text()
+			
+			print  '%-15s' % (word),       # 输出单词
+			words_cnt += 1
+		   
+			if words_cnt % amount_word_a_row == 0:         # 换行处理及与换行有关的颜色处理
+				row_cnt += 1
+				clr_control.set_print_gray_text()               # 灰(hui)色输出
+				print '\n\n%-5s\t' % (str(row_cnt+1) + ':'),   
+				if row_cnt % 2 == 0:
+					clr_control.set_print_yellow_text()  	# 黄色输出
+				else:
+					clr_control.set_print_green_text()          # 输出为绿色
 
 
-        clr_control.set_print_green_text()  	# 输出还原为绿色
+	clr_control.set_print_green_text()  	# 输出还原为绿色
 
 
-def rm_word_from_db(db, word):   # 从数据库删除元素
-        if not db.delrow(word):
-            clr_control.set_print_yellow_text()         # 黄色输出
-            print '...  ',
-            print 'remove failed ..'
-            clr_control.set_print_green_text()  	# 输出还原为绿色
-    
+def rm_word_from_db(db, *words):   # 从数据库删除元素
+	for each in words:
+		if not db.delrow(each):
+			clr_control.set_print_yellow_text()         # 黄色输出
+			print '...  ',
+			print 'remove "%s" failed ..' % each
+			clr_control.set_print_green_text()  	# 输出还原为绿色
+
                         
 
 
@@ -201,12 +202,12 @@ if __name__ == '__main__':
         # 建立一张表，建立就完注释掉
 	#db.createtable(('Word', 'interpert', 'Counter'))
 
-        launch_gui_msg = '\n\n\n\n\n				有百翻典\n\n\
-                 只能查询从英语 -> 汉语，不能 从汉语 -> 英语\n\n\
-                           句子翻译来自百度翻译\n\
-		           单词查询来自有道词典\n\n\
+	launch_gui_msg = '\n\n\n\n\n				有百翻典\n\n\
+				英 -> 汉\n\n\
+			   句子翻译来自百度翻译\n\
+			   单词查询来自有道词典\n\n\
 			  行行无别语，只道早还乡！'.decode('utf-8').encode('gbk')
-	
+
 	
 
 	help_msg =  '命令 -- <:q> or <:Q> 退出\n\
@@ -250,9 +251,9 @@ if __name__ == '__main__':
 			
 			tmp_cmd = needs.split()
 			if len(tmp_cmd) == 2:
-                            print_summary_db(db)
-                        else:
-                            print_summary_db(db, int(tmp_cmd[2][1:]))  # 一行输出单词数量
+				print_summary_db(db)
+			else:
+				print_summary_db(db, int(tmp_cmd[2][1:]))  # 一行输出单词数量
 			print ''
 			continue
 
@@ -260,9 +261,9 @@ if __name__ == '__main__':
 			continue
 
 
-		if ':rm' in needs:                      # 删除一个历史单词
-                    rm_word_from_db(db, needs.split()[1])
-                    continue
+		if ':rm' in needs:                      # 删除历史单词
+			rm_word_from_db(db, *(needs.split()[1:])) # 可一次删除多个
+			continue
                     
 
 		

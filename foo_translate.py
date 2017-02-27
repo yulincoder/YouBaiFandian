@@ -214,7 +214,7 @@ if __name__ == '__main__':
 		<:h> or <:H> 帮助信息\n\
 		<:c> or <:C> 清空屏幕\n\
 		<:his> 历史信息  <-s> 历史信息概要 <-xx> 一行展示单词数量(默认为3)\n\
-		<:rm xxx> 删除一条历史记录 \n\n'.decode('utf-8').encode('gbk')
+		<:rm xxx xxx ...> 删除一条或多条历史记录 \n\n'.decode('utf-8').encode('gbk')
 	
 	topbar_msg = 'YouBai [0.0.0.1] \nType ":q", ":c", ":h" or ":his" for more information.'.decode('utf-8').encode('gbk')
 

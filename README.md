@@ -9,4 +9,4 @@
 
 ![Alt text](https://user-images.githubusercontent.com/10429180/38069730-80719d90-334a-11e8-9886-08a86986b565.png)
 
-<img src="https://user-images.githubusercontent.com/10429180/38069730-80719d90-334a-11e8-9886-08a86986b565.png" style="zoom:50%" />
+<img src="https://user-images.githubusercontent.com/10429180/38069730-80719d90-334a-11e8-9886-08a86986b565.png" width="50%" height="50%" />

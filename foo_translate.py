@@ -7,17 +7,15 @@ import os
 import random
 import re
 import json
-
 import httplib
 import md5
 import urllib
 import color
 
-import mousedb
+import mousedb # A simple json database written by myself. :)
 
 
 #from demo import *
-
 def url_open(url):
     req = urllib2.Request(url)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.65 Safari/537.36')
@@ -29,23 +27,18 @@ def url_open(url):
         print 'error: No connected to Internet.'
         return ''
 
-
-
 def get_result_word(word):
     content =  url_open('http://dict.youdao.com/w/eng/' + word + '/#keyfrom=dict2.index')
-
-    content = content.replace(' ', '') # 去掉所有空格
-    content = content.replace('\n', '') # 去掉所有换行
-    content = content.replace('\t', '') # 去掉所有制表符
-    content = content.replace('\t', '') # 去掉所有制表符
-
+    content = content.replace(' ', '') #
+    content = content.replace('\n', '') # 
+    content = content.replace('\t', '') # 
+    content = content.replace('\t', '') # 
     result_string = re.findall('"trans-container"><ul><li>(.*?)</li></ul>', content)
     ''' 音标功能有问题，日后再加S
     pronounce = re.findall('<spanclass="pronounce">英<spanclass="phonetic">(.*?)</span><ahref="#"title="真人发音"\
 class="spdictvoicevoice-jslog-js"data-rel="hello&type=1"data-4log="dict.basic.ec.uk.voice"></a></span><spanclass\
 ="pronounce">美<spanclass="phonetic">(.*?)</span>', content)
     '''
-    
     if result_string != []:
         result_string[0] = result_string[0].replace('</li>', '')
         result_string[0] = result_string[0].replace('<li>', '\n      ')
@@ -53,38 +46,29 @@ class="spdictvoicevoice-jslog-js"data-rel="hello&type=1"data-4log="dict.basic.ec
     else:
     	return '...'
 
-
-
 def get_result_sentence(sentence = 'hello, word'):
     appid = '20161213000033948'
     secretKey = 'lWJS35DTzSvPFT8shGue'
 
-     
     httpClient = None
     myurl = '/api/trans/vip/translate'
     q = sentence
     fromLang = 'en'
     toLang = 'zh'
     salt = random.randint(32768, 65536)
-
     sign = appid+q+str(salt)+secretKey
     m1 = md5.new()
     m1.update(sign)
     sign = m1.hexdigest()
     myurl = myurl+'?appid='+appid+'&q='+urllib.quote(q)+'&from='+fromLang+'&to='+toLang+'&salt='+str(salt)+'&sign='+sign
-    
     result = ''
     try:
         httpClient = httplib.HTTPConnection('api.fanyi.baidu.com')
         httpClient.request('GET', myurl)
-     
         #response是HTTPResponse对象
         response = httpClient.getresponse()
-
         info_from_baidu = json.loads(response.read())
-        
         result =  info_from_baidu[u'trans_result'][0][u'dst']
-
         if sentence == result:		#翻译结果与查询的句子一致，则是胡乱输入的一个句子
         	result = '...'
     except Exception, e:
@@ -93,21 +77,15 @@ def get_result_sentence(sentence = 'hello, word'):
     finally:
         if httpClient:
             httpClient.close()
-
         return result
-
-
 
 def db_update(db, word, interpert):       # 向数据库更新查词的数据
     items = db.get_items()                # 这个可以优化，设置成全局变量就不用每次都从数据库取键值集合了
-    
     if word in items:
         count = db.findvalue(word, 'Counter')
         db.update(word, 'Counter', count + 1)
     else:
         db.insertrow((word, interpert, 1))
-
-
 
 def print_db(db):           # 打印历史记录详细信息
     items = db.get_items()
@@ -122,7 +100,6 @@ def print_db(db):           # 打印历史记录详细信息
 
     sorted_count = sorted(tmp_for_sort)         # 对统计的次数进行排序
     for each in sorted_count:                   # 根据排序输出查询历史记录
-        
         for item in tmp_for_sort[each]:         # 统计次数一样的不同单词都在list里面
             print '>>>   ' +  item ,            # 输出单词
             clr_control.set_print_red_text()
@@ -133,7 +110,6 @@ def print_db(db):           # 打印历史记录详细信息
             clr_control.set_print_green_text()  	# 输出还原为绿色
             print ''
                 
-
 def print_summary_db(db, amount_word_a_row = 3):                       # 打印历史记录简单信息
         items = db.get_items()
         tmp_for_sort = {}       # 新dict用来排序之用   
@@ -147,14 +123,12 @@ def print_summary_db(db, amount_word_a_row = 3):                       # 打印�
             else:
                     tmp_for_sort[index].append(item)
 
-
         sorted_count = sorted(tmp_for_sort)             # 对统计的次数进行排序
-        
+       
         clr_control.set_print_gray_text()               # 灰(hui)色输出
         print '%-5s\t' % (str(1) + ':'),
         clr_control.set_print_yellow_text()             # 黄色输出
         for each in sorted_count:                       # 根据排序输出查询历史记录
-                
             for word in tmp_for_sort[each]:             # 统计次数一样的不同单词都在list里面
                 
                     clr_control.set_print_red_text()

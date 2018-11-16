@@ -13,6 +13,13 @@
 
 > **```./foo_translate.py```** enter it
 
+#### examples:
+> **``` ./foo_translate.py ```** enter it to look up a word.
+
+> **``` ./foo_translate.py china```** look up a word directly. 
+
+> **``` ./foo_translate.py 'hello I am a coder'```** translate a sentence directly. 
+
 <img src="https://user-images.githubusercontent.com/10429180/38069725-789615f6-334a-11e8-9ee1-f6a900150ce4.png" width="60%" height="60%" />
 
 <img src="https://user-images.githubusercontent.com/10429180/38069728-7c6cd642-334a-11e8-972b-b922f3abe4c1.png" width="60%" height="60%" />

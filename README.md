@@ -1,7 +1,7 @@
 # YouBaiFandian
 ### 有百翻典 in Chinese, because based which Youdao dictionary and Baidu translation.
 
-Features:
+### Features:
 1. Look up a English word
 2. To translate a sentecne
 3. Dump the history of the query to hard-dsik through [mousedb](https://github.com/yulincoder/mousedb)

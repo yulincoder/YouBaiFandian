@@ -4,7 +4,7 @@
 Features:
 1. Look up a English word
 2. To translate a sentecne
-3. Dump the history of the query to hard-dsik
+3. Dump the history of the query to hard-dsik through [mousedb](https://github.com/yulincoder/mousedb)
 4. Sort words by search frequency 
 
 ### Usage

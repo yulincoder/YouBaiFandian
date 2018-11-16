@@ -8,7 +8,7 @@ Features:
 4. Sort words by search frequency 
 
 ### Usage
-> type ```**chmode -550 ./foo_translate.py**``` to set the execution privilege
+> type **```chmode -550 ./foo_translate.py```** to set the execution privilege
 
 > ```**./foo_translate.py**```
 

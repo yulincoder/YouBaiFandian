@@ -8,9 +8,10 @@
 4. Sort words by search frequency 
 
 ### Usage
-> type **```chmode -550 ./foo_translate.py```** to set the execution privilege
+#### step 1: setting
+> **```chmode -ugo+x ./foo_translate.py```** to set the execution privilege
 
-> **```./foo_translate.py```**
+> **```./foo_translate.py```** enter it
 
 <img src="https://user-images.githubusercontent.com/10429180/38069725-789615f6-334a-11e8-9ee1-f6a900150ce4.png" width="60%" height="60%" />
 

@@ -8,7 +8,9 @@ Features:
 4. Sort words by search frequency 
 
 ### Usage
-> chmod -
+> type ```**chmode -550 ./foo_translate.py**``` to set the execution privilege
+
+> ```**./foo_translate.py**```
 
 <img src="https://user-images.githubusercontent.com/10429180/38069725-789615f6-334a-11e8-9ee1-f6a900150ce4.png" width="60%" height="60%" />
 

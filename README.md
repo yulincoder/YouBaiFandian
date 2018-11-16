@@ -8,7 +8,7 @@
 4. Sort words by search frequency 
 
 ### Usage
-#### step 1: setting
+#### setting
 > **```chmode -ugo+x ./foo_translate.py```** to set the execution privilege
 
 > **```./foo_translate.py```** enter it

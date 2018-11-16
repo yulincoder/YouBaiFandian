@@ -219,29 +219,31 @@ if __name__ == '__main__':
 	clr_control.set_print_green_text()  # 初始化输出为绿色
 
 	import os
-	#os.system("clear")
-	print launch_gui_msg,
-	#raw_input()
-	#os.system("clear")
-
-
-	print topbar_msg
+        if len(sys.argv) == 1:
+	    print launch_gui_msg,
+	    print topbar_msg
 	while True:
-		needs = raw_input('>>>   ')
+		if len(sys.argv) == 1:
+		    needs = raw_input('>>>   ')
+                else:
+                    needs = sys.argv[1]
 
 		if needs == ':q' or needs == ':Q':		# 退出
 			break
 		if needs == ':h' or needs == ':H':		# 帮助
 			print help_msg
+			if len(sys.argv) > 1: break
 			continue
 
 		if needs == ':c' or needs == ':C':		# 清屏
 			os.system("clear")
 			print topbar_msg
+			if len(sys.argv) > 1: break
 			continue
 
 		if needs == ':his':                     # 查询历史记录
 			print_db(db)
+			if len(sys.argv) > 1: break
 			continue
 
 		if ':his -s' in needs:                  # 查询历史记录（只显示单词和历史查询次数）
@@ -252,6 +254,7 @@ if __name__ == '__main__':
                         else:
                             print_summary_db(db, int(tmp_cmd[2][1:]))  # 一行输出单词数量
 			print ''
+			if len(sys.argv) > 1: break
 			continue
 
 		if needs == "":		                # 无输入，只敲回车
@@ -260,6 +263,7 @@ if __name__ == '__main__':
 
 		if ':rm' in needs:                      # 删除一个历史单词
                     rm_word_from_db(db, needs.split()[1])
+                    if len(sys.argv) > 1: break
                     continue
 
                 if '靠' in needs:
@@ -283,3 +287,4 @@ if __name__ == '__main__':
 		
 		print ''
 		clr_control.set_print_green_text()  	        # 初始化输出为绿色
+                if len(sys.argv) > 1: break
